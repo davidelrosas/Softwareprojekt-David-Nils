@@ -21,17 +21,6 @@ def main() -> int:
     key = random.key(int(time.time()))
     
     choice = 0
-    while choice == 0:
-        try:
-            user_input = input("please insert a number for the experiment to be executed:\n"
-                    "1: Full trajectory (100 time steps)\n"
-                    "2: 75 randomly selected data points\n"
-                    "3: 50 randomly selected data points\n"
-                    "4: 25 randomly selected data points\n")
-            choice = int(user_input)
-        except Exception as e:
-            print(e,"\n")
-            print("Please Enter a valid choice between 1 and 4")
          
     #this is temporary, but make a loop that runs through experiments with different parameters every time (well right now they all use the same params) 
     alpha_pred = {} 
