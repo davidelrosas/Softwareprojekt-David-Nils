@@ -40,6 +40,7 @@ Equations"
 ---
 
 # PROJECT 1
+
 By this point I had already developed a basic understanding of some concepts in machine learning and ANNs. The next project consisted in starting our journey through the world of Neural Ordinary Differential Equations, a machine learning paradigm consisting of modeling the continous dynamics of a systems state. To this end I coded minimal version of a NODE in the script "minimal_node.py" (runs on it's own) and tested it's interpolation capabilities on a synthetic dataset of datapoints following a sinus curve. The idea here was to implement it without the use of dedicated libraries (other than jax) and to create our own numerical integration function using Euler's method. This attempt was sadly not very succesful and the model fails to interpolate the sinus curve, even without noise (probably due to some bug). The next week our task was to implement the same minimal architecture but with the use of the dedicated libraries equinox (for neural network), diffrax (for the integrator) and optax (for the optimizer). We tested the model on a dataset of covid infections over time for interpolation, and on a dataset of lynx and hare populations over time for interpolation and extrapolation. I also tested the model on the same synthetic dataset as before but with vastly better results. All in all the greatest accomplishment of my model was it's ability to capture the periodic behaviour of the populations for some runs of the extrapolation task. It also performed okay for the interpolation of covid cases. This can be tested out with the "min_node.py" script by choosing the experiment in the main function. It requires the "covid_data.npy" and "LH_data.npy" files to run.
 
 **difficulties:**
@@ -54,6 +55,8 @@ The difficulties for this task were mainly to understand the differences of this
 ---
 
 # PROJECT 2
+
+
 
 **difficulties:**
 
