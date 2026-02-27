@@ -69,14 +69,20 @@ Because we had to handle a more complex dataset and model, I had to properly lea
 -Different types of normalization methods
 -Vmap and scan
 
-
 ---
 
 # PROJECT 3
 
+From this point on all the projects were done in preparation for our final project (This one can be found in the Final_Project Folder of the repo). The idea was to implement a model from litarature, for which we chose the ACE-NODE, and test it on a classification task on the Physionet Sepsis dataset. The first couple of weeks I had to get familiar with the concepts of attention and coevolving ODEs presented inside the paper "ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential Equations". To test these out I implemented the model under "ACE_NODEv3.py". It consists of 2 coevolving ODEs, one for the hidden state and another for the attention matrix. This attention matrix is applied to the hidden state as a pairwise attention on every step of the integration, as described by the paper. By feeding both ODEs with this new vector, not only is the evolution of the hidden state modulated by the attention matrix, but the attention evolves dynamically according to the changes in the hidden state. The paper argues, that this "attentive co-evolving NODE concept is also
+an effective way to increase the representation learning capability of NODEs" (Jhin et al., 2021, p. 3). Also interesting is that both ODEs are trained separately with different loss function, one after the other, by updating only the weights of the ODE that is currently being trained. To test this model I used the Lynx and Hare population dataset again for interpolation and extrapolation. The results for this first attempt at implementing the model were rather bad. Although it did managed to capture the periodicity of the populations on the extrapolation task, this happened muche mor infrequently than with the simple NODE architecture. But this may be due to the attention based model not being suited for this specific task or because of poor optimization. To recreate the experiment run the script "test_model.py".
+
 **difficulties:**
+There were mainly two difficulties with this project. First was to implement the training cycle proposed by the authors of the paper. This required for me to learn how to freeze specific parts of the model in equinox (Thanks Umur), so that the two ODEs could be trained separately. But still with the model properly working, it was really difficult to get it to behave correctly for both the interpolation and the extrapolation tasks. Ultimately I didn't manage to get it to have a consistent performance.
 
 **learned:**
+-About Pairwise attention, coevolution and other concepts needed to implement an ACE NODE
+-How to integrate systems consisting of more than one ODE with the diffrax solver
+-How to work with the PyTree model representation in Equinox
 
 ---
 
@@ -93,3 +99,8 @@ Because we had to handle a more complex dataset and model, I had to properly lea
 **difficulties:**
 
 **learned:**
+
+
+## Sources
+
+Jhin, S. Y., Jo, M., Kong, T., Jeon, J., & Park, N. (2021). *ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential Equations*. arXiv preprint arXiv:2105.14953. https://arxiv.org/abs/2105.14953
