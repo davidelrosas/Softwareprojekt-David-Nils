@@ -31,11 +31,12 @@ EVERYTHING. Especially trying to build the sufficient understanding to begin to 
 Equations"
 
 **learned:**  
-- What is a neural network
-- Forward Pass and Backpropagation (superficially)  
-- how do neural networks "learn" using gradient descent  
-- How to code and train a basic neural network
-- Basics of classification tasks
+-What is a neural network
+-Forward Pass and Backpropagation (superficially)  
+-how do neural networks "learn" using gradient descent  
+-How to code and train a basic neural network
+-Basics of classification tasks
+-Basics of Jax
 
 ---
 
@@ -47,20 +48,27 @@ By this point I had already developed a basic understanding of some concepts in 
 The difficulties for this task were mainly to understand the differences of this new ML paradigm to the previous discrete model I had coded to recognize digits. Getting familiar with the Python libraries was also a big part of the work during these weeks. Another difficulty I had was to feed the node model with the lynx and hare population data. Up to this point it was not intuitive to me that time series could consist of multiple features. So thanks to the lynx and hare dataset I became more familiar with the concept of multivariate time series and how to feed the model with this data correctly, so that it could learn the interactions between the different variables.
 
 **learned:**
-- How to implement a minimal Node Architecture and a simple integrator using Euler's method
-- The basics of the equinox, diffrax and optax libraries
-- The importance of Normalizing the data and tweaking the Hyperparameters of a model to achieve better results
-- What a multivariate time series is (through lynx and hare experiment)
+-How to implement a minimal Node Architecture and a simple integrator using Euler's method
+-The basics of the equinox, diffrax and optax libraries
+-The importance of Normalizing the data and tweaking the Hyperparameters of a model to achieve better results
+-What a multivariate time series is (through lynx and hare experiment)
 
 ---
 
 # PROJECT 2
 
-
+The next project involved trying to predict a latent variable alpha for a dataset of spiral trajectories. For this we couldn't keep using the simple NODE architecture but had to implement a model caple of learning latent variables with more ease. I ended up implementing an ODE RNN model, a recurrent neural network that also uses a NODE to evolve it's hidden state. The first week of this project our dataset consisted of spiral trajectories containing 100 uniformely sampled datapoints. More interesting was the following week, where we tested one of the most important advantages of the NODE architecture, which is to handle irregularly sampled data. For this we had to train the model to predict the latent variable alpha on now four different datasets of spiral trajectories, and compare the performance on each dataset. The first again with 100 uniformely sampled points and then subsequently with 75, 50 and 25 irregularly sampled datapoints per trajectory. The results showed that this implementation of the model is able to retain a pretty good degree of accuracy even when the sampling frequency is reduced. This can be tested by running the script "environment.py" which needs all other files inside the folder to run properly. 
 
 **difficulties:**
+Because we had to handle a more complex dataset and model, I had to properly learn to utilize the concepts of vectorizing and scanning in the context of jax. This was challenging at first but drastically improved the runtime of the application. The vectorization let us handle the batches of this very large dataset more efficiently, while the scanning was a crucial part of implementing the RNN in a way that was compilable for jax.
 
 **learned:**
+-About ANNs with Recurrent connections
+-To use the hidden state as a latent representation of the dynamics of the system
+-The advantages of NODE architecture for sparsely and irregularly sampled data
+-Different types of normalization methods
+-Vmap and scan
+
 
 ---
 
