@@ -27,8 +27,7 @@ The other project is in the script "digit_recog.py" (runs on it's own), which co
 During the first couple of weeks we also had to do some reading on more complex NODE models, for which I chose the ACE_NODE. In "ACE_NODE.odp" you can see the slides for the presentation I made on the topic.
 
 **difficulties:**  
-EVERYTHING. Especially trying to build the sufficient understanding to begin to tackle the concepts inside the paper "ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential
-Equations"
+Trying to build the sufficient understanding to begin tackling the basic concepts of Artificial Neural Networks and machine learning. Also trying to understand the paper "ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential Equations" as it was full of concepts that were completely new to me.
 
 **learned:**  
 -What is a neural network
@@ -77,7 +76,7 @@ From this point on all the projects were done in preparation for our final proje
 an effective way to increase the representation learning capability of NODEs" (Jhin et al., 2021, p. 3). Also interesting is that both ODEs are trained separately with different loss function, one after the other, by updating only the weights of the ODE that is currently being trained. To test this model I used the Lynx and Hare population dataset again for interpolation and extrapolation. The results for this first attempt at implementing the model were rather bad. Although it did managed to capture the periodicity of the populations on the extrapolation task, this happened muche mor infrequently than with the simple NODE architecture. But this may be due to the attention based model not being suited for this specific task or because of poor optimization. To recreate the experiment run the script "test_model.py".
 
 **difficulties:**
-There were mainly two difficulties with this project. First was to implement the training cycle proposed by the authors of the paper. This required for me to learn how to freeze specific parts of the model in equinox (Thanks Umur), so that the two ODEs could be trained separately. But still with the model properly working, it was really difficult to get it to behave correctly for both the interpolation and the extrapolation tasks. Ultimately I didn't manage to get it to have a consistent performance.
+There were mainly two difficulties with this project. First was to implement the training cycle proposed by the authors of the paper. This required for me to learn how to freeze specific parts of the model in equinox, so that the two ODEs could be trained separately. But still with the model properly working, it was really difficult to get it to behave correctly for both the interpolation and the extrapolation tasks. Ultimately I didn't manage to get it to have a consistent performance.
 
 **learned:**
 -About Pairwise attention, coevolution and other concepts needed to implement an ACE NODE
@@ -88,18 +87,29 @@ There were mainly two difficulties with this project. First was to implement the
 
 # PROJECT 4
 
+The paper by Jhin et al., 2021 we took the model from, conveniently contains a section for a very similar experiment as our final project. Here they compare the performance of different models on the PhysioNet Mortality classification dataset. Specifically they wanted to test wether their attention based model, ACE-Latent-ODE (ODE Enc.), would perform better than the others. This gave me the idea to combine the ACE mechanism with the ODE RNN architecture I had previously learned. This decision made sense to me for the PhysioNet Sepsis classification task, because the dataset seemed to require a model capable of handling irregularly sampled and sparse data, multivariate time series of vastly different lengths, and learning latent dynamics. This led to the creation of the model in the script "ACE_ODE_RNNv2.py", which was tested on the datasets of spiral trajectories already presented in Project 2 (run the script "environment.py" to recreate the experiment). Unfortunately as in the previous project, the results were somewhat underwhelming. Although the model managed to predict the alpha variable for the 4 different datasets succesfully, it seemed to performe slightly worse than the ODE RNN. And to top it off, the computing time required to train the ACE ODE RNN is much greater than that of the ODE RNN. This happens because the attention vector that needs to be applied to the hidden state at each step of the integration and that is outputed by the attention ODE, has the dimension of the hidden state squared. Also the fact that both the hidden state and the attention ODEs have to be trained separately increases this runtime.
+
 **difficulties:**
 
-**learned:**
+The biggest difficulties this project were to decide how to generate the initial attention and how to forward the attention to the next step on the recurrent connection. The paper roughly described how the initial attention was generated for each experiment, but didn't meantion how to handle the attention on recurrent connections. To gain some clarity on this issue I wrote an email to the corresponding author of the paper, but sadly I have yet to recieve a response. For the time being on this project I decided to generate the initial attention with an outer product and to reset the attention with the same iniitial attention generation function on each step of the RNN.
 
+**learned:**
+-To combine aspects of different models into a new functioning (but not necessarily good) model
 ---
 
 # PROJECT 5
 
+With the ACE ODE RNN completed, it was finally time to modify 
+
 **difficulties:**
 
 **learned:**
 
+
+
+for final project:
+Recurrent neural network and ODE are ideal for this sepsis classification task,
+Now it was left to see if the added attention mechanism made acuracy better
 
 ## Sources
 
