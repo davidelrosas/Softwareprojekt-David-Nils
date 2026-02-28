@@ -24,11 +24,15 @@ This model was heavily based on the architecture presented by Jhin et al., 2021,
 
 This is a model with a static learned attention that gets applied to the hidden state on each step of the integration, but that doesn't co-evolve with it.
 
+
 ## RESULTS
+
+When Comparing the three models based on their performance on the recall metric, there was no significant difference. This means all three models were equally as good at reducing the amount of false negatives. When running the statistical tests based on the F1 metric, there was no significant difference when comparing the ACE-Model and the Base-Model, and when comparing the ATT-Model and the Base-Model with each other. But there was a difference when comparing the ACE-Model and the ATT-model with each other. In general, the ACE-Model slightly outperformed the ATT-Model in its ability to keep false positives low. 
 
 
 ## REFLECTION
 
+All in all our results showed us, that at least with our current experimental setup and potentially unoptimized models, the addition of a mechanism of attention to the models didn't increase their accuracy for this classification task. Still when performing an "eye test" the ACE-model does seem to yield overall slightly better results than it's counterpart without the attention. That's why it would be interesting to explore wether the results we got during this project are due to a poor optimization of the ACE-model or if this architecture of co-evolving attention and hidden state is just not suited for this specific task and could fare better when tested on other problem sets.
 
 ## Sources
 
