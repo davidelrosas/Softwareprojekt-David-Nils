@@ -87,7 +87,7 @@ There were mainly two difficulties with this project. First was to implement the
 
 # PROJECT 4
 
-The paper by Jhin et al., 2021 we took the model from, conveniently contains a section for a very similar experiment as our final project. Here they compare the performance of different models on the PhysioNet Mortality classification dataset. Specifically they wanted to test wether their attention based model, ACE-Latent-ODE (ODE Enc.), would perform better than the others. This gave me the idea to combine the ACE mechanism with the ODE RNN architecture I had previously learned. This decision made sense to me for the PhysioNet Sepsis classification task, because the dataset seemed to require a model capable of handling irregularly sampled and sparse data, multivariate time series of vastly different lengths, and learning latent dynamics. This led to the creation of the model in the script "ACE_ODE_RNNv2.py", which was tested on the datasets of spiral trajectories already presented in Project 2 (run the script "environment.py" to recreate the experiment). Unfortunately as in the previous project, the results were somewhat underwhelming. Although the model managed to predict the alpha variable for the 4 different datasets succesfully, it seemed to performe slightly worse than the ODE RNN. And to top it off, the computing time required to train the ACE ODE RNN is much greater than that of the ODE RNN. This happens because the attention vector that needs to be applied to the hidden state at each step of the integration and that is outputed by the attention ODE, has the dimension of the hidden state squared. Also the fact that both the hidden state and the attention ODEs have to be trained separately increases this runtime.
+The paper by Jhin et al., 2021 we took the model from, conveniently contains a section for a very similar experiment as our final project. Here they compare the performance of different models on the PhysioNet Mortality classification dataset. Specifically they wanted to test wether their attention based model, ACE-Latent-ODE (ODE Enc.), would perform better than the others. This gave me the idea to combine the ACE mechanism with the ODE RNN architecture I had previously learned. The ACE Node would be used to evolve the hidden state to the point right before the observation arrives, and an RNN cell would then combine the state with the new observation for the next step. This decision made sense to me for the PhysioNet Sepsis classification task, because the dataset seemed to require a model capable of handling irregularly sampled and sparse data, multivariate time series of vastly different lengths, and latent dynamics. This led to the creation of the model in the script "ACE_ODE_RNNv2.py", which was tested on the datasets of spiral trajectories already presented in Project 2 (run the script "environment.py" to recreate the experiment). Unfortunately as in the previous project, the results were somewhat underwhelming. Although the model managed to predict the alpha variable for the 4 different datasets succesfully, it seemed to performe slightly worse than the ODE RNN. And to top it off, the computing time required to train the ACE ODE RNN is much greater than that of the ODE RNN. This happens because the attention vector that needs to be applied to the hidden state at each step of the integration and that is outputed by the attention ODE, has the dimension of the hidden state squared. Also the fact that both the hidden state and the attention ODEs have to be trained separately increases this runtime.
 
 **difficulties:**
 
@@ -95,21 +95,39 @@ The biggest difficulties this project were to decide how to generate the initial
 
 **learned:**
 -To combine aspects of different models into a new functioning (but not necessarily good) model
+
 ---
 
 # PROJECT 5
 
-With the ACE ODE RNN completed, it was finally time to modify 
+With the main framework of the ACE ODE RNN completed, it was finally time to modify it to be able to process the PhysioNet Sepsis dataset. For this I first had to create a preprocessing pipeline to handle the 20000 patient time series files. The idea here was to get rid of empty files, and organize the data in a more usable way for the model. To this end I created a new dictionary file containing for each patient: 
+
+- The Dynamic hourly vital signs and lab measurements
+- The static demographic information
+- A mask for the time series to encode when a value was observed (1) or was not observed (0)
+- The label denoting wether the patient got sepsis after 6 hours (1) or not (0)
+
+The normalization statistics were then computed fot the whole dataset. The model was modified accordingly, to handle the dynamic data part of the time series as the observations, while the static data for the patients was injected into the initial hidden state of each time series. This way the model is supposed to learn to evolve the hidden state taking the demographic information from the patient into account. The initial attention was generated by creating a correlation matrix of the initial hidden state for all patient files in the batch. This means all time series would share the same initial attention, but this matrix would then continue to evolve with each respective hidden state independently from that point on. The way the recurrent connection was handled was also changed from the previous Project. Instead of generating a new initial attention for each step of the RNN, the attention computed by the ACE NODE would be passed through it's own RNN cell. When training the model all time series were truncated or padded to a specific length before being fed to the model, so that the batches could be used for the vectorized forward pass. 
+
+After testing the performance of the model on the PhysioNet Sepsis classification task, the results seemed to be quite promising, but to be sure I modified an ODE RNN to handle the dataset in the same way, and compared the performance of both models. Unfortunately it was quite difficult to tell wether the Attention mechanism provided any substantial benefit over the much faster to train ODE RNN. This was a question that I tred to answer in my Final project, working together with my group partner Nils.
+
+To recreate the experiment, the scrtipt "preprocessing.py" has to be run on the PhysioNet sepsis dataset first (which is not contained inside the fodler) to create the files the model is to be trained with. After this the desired model to be tested out (ACE ODE RNN or ODE RNN) should be imported into "environment.py" before runing the script.
 
 **difficulties:**
+Although learning to make a model able to handle such a complex dataset was difficult in it's own right. What I struggled the most with this time was to design the code structure in an organized and modular way. With so many moving parts the handling of the preprocessing ended up being split between the "preprocessing.py" and "training.py" scripts in a way that I was not entirely happy with.
+
 
 **learned:**
+- Various techniques for data preprocessing such as masking and padding
+- To Apply various concepts of machine learning to succesfully train a model with a complex dataset
+- That a bigger and more complex model is not necessarily always better
+- The importance of benchmarking, which was further explored in the final project
+
+---
+
+# CONCLUSION
 
 
-
-for final project:
-Recurrent neural network and ODE are ideal for this sepsis classification task,
-Now it was left to see if the added attention mechanism made acuracy better
 
 ## Sources
 
