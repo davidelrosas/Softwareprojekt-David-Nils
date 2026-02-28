@@ -8,7 +8,7 @@ The experimental setup consisted of training three different models with the Phy
 
 The experiment (training the model, validating on the dataset and saving the metrics) was performed 10 times for each model. At the end we used non parametric statistical tests (Kruskal-Wallis Test and Pairwise Mann-Whitney U Test) to check wether there was a significant difference on the performance between models.
 
-To recreate the Experiment, the PhysioNet sepsis dataset (which is not contained inside of this folder) is needed. First the "makefile" must be run, to create the training and validation data from the patient time series files. Then either of the 3 models can be imported into the "experiment.py" script. Running this script will train and validate the model, and save the metrics from the run in an output file named "training_history.npz". These files need to be placed inside a folder, that must be provided to the "statsig.py" script before running it. This file then compares the performance of the models with each other.
+To recreate the experiment, the PhysioNet sepsis dataset (which is not contained inside of this folder) is needed. First the "makefile" must be run, to create the training and validation data from the patient time series files. Then either of the 3 models can be imported into the "experiment.py" script. Running this script will train and validate the model, and save the metrics from the run in an output file named "training_history.npz". These files need to be placed inside a folder, that must be provided to the "statsig.py" script before running it. This file then compares the performance of the models with each other.
 
 ## MODELS
 
