@@ -125,7 +125,13 @@ Although learning to make a model able to handle such a complex dataset was diff
 
 ---
 
-# CONCLUSION
+# REFLECTION
+
+(The last project overview can be found under the folder ""FINAL_PROJECT" in this repo.)
+
+Throughout this whole semester I got familiar with multiple concepts of Machine Learning, spanning from different NODE based architectures to different model training and preprocessing techinques. I was also able to explore these topics and apply my learnings to my own models with varying degrees of success. It was really interesting to observe the ability of NODEs to handle irregularly sampled data and learn the dynamics of the systems on real and synthetic datasets. In total I managed to recreate my own version for 2 NODE architectures from literature, one being the ODE RNN and the other the ACE NODE. Taking inspiration from the paper by Jhin et al., 2021 I also applied the concept of attention and coevolving ODEs to the ODE RNN to create my own ACE ODE RNN. By succesfully applying this model to the PhysioNet Sepsis classification task, I was able to deepen my understanding of machine learning, Artificial Neural Networks and NODEs. 
+
+Throughout this course we mainly worked with supervised learning algorithms. In the future I am looking to explore ANNs in contexts that require unsupervised and reinforced learning algorithms. Im also excited to learn more about architectures that use Transformers, Convolutional Neural Networks or ones that try to mimick biologically plausible systems, like Spiking Neural Networks.
 
 
 
