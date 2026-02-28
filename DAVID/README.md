@@ -8,7 +8,7 @@ Hello and welcome to my part of the Softwareproject. In the Following Text I'll 
 
 1) This folder doesn't contain all of the scripts I wrote throughout the semester, just the ones I thought are the most relevant to the course and the "final attempts" for each project. I'll also always specify the files that need to be run and in which order, and if specific folder structures are needed to be able to reproduce the intended output.
 
-2) A lot of the python scripts are extensively commented (especially for the first couple projcets). I chose to leave the comments in, because they were part of my process to try and better understand certain machine learning concepts (As I was completely new to the topic), and to rationalize what was happening in the code. But this also means that a lot of the comments might contain unclear or outright wrong statements, a lot of typos, grammar errors, redundancy and so on. This goes especially for comments where I am trying to understand/explain certain concepts.
+2) A lot of the python scripts are extensively commented (especially for the first couple projects). I chose to leave the comments in, because they were part of my process to try and better understand certain machine learning concepts (as I was completely new to the topic), and to rationalize what was happening in the code. But this also means that a lot of the comments might contain unclear or outright wrong statements, a lot of typos, grammar errors, redundancy and so on. This goes especially for comments where I am trying to understand/explain certain concepts.
 
 3) The naming conventions for classes and variables and the coding style can be somewhat inconsistent. The code structure for the projects is also somewhat messy and not necessarily optimaly modular. I hope this doesn't cause too much confusion.
 
@@ -16,41 +16,47 @@ Hello and welcome to my part of the Softwareproject. In the Following Text I'll 
 
 ---
 
-With this in mind now follows the Overview.
+With this in mind let us continue to the Overview.
 
 ---
 
 # PROJECT 0
 
-The First couple of weeks for me mostly involved getting into the topic of machine learning and artificial neural networks. For this we first implemented a simple linear regression using gradient descent, a technique also used for learning in neural networks. In the script "linear_regression.py" (runs on it's own) the idea is to interpolate some data points that follow a simple linear function with noise. Some diagrams for the loss surface are also plotted, to better be able to visualize the effects of gradient descent. 
-The other project is in the script "digit_recog.py" (runs on it's own), which contains code for a simple multilayer perceptron trained to recognize digits from the mnist_784 dataset. This project got me to learn the basics of machine learning and artificial neural networks.
-During the first couple of weeks we also had to do some reading on more complex NODE models, for which I chose the ACE_NODE. In "ACE_NODE.odp" you can see the slides for the presentation I made on the topic.
+The First couple of weeks for me mostly involved getting into the topic of machine learning and artificial neural networks. For this we first implemented a simple linear regression using gradient descent, a technique also used for learning in neural networks. In the script "linear_regression.py" (runs on it's own) the idea is to interpolate some data points that follow a simple linear function with noise. Some diagrams for the loss surface are also plotted here, to be able to better visualize the effects of gradient descent.
+
+The other project is in the script "digit_recog.py" (runs on it's own), which contains code for a simple multilayer perceptron trained to recognize digits from the MNIST_784 dataset. This project got me to learn the basics of machine learning and artificial neural networks.
+
+During the first couple of weeks we also had to do some reading on more complex NODE models, for which I chose the ACE NODE from the paper "ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential Equations" by Jhin et al., 2021. In "ACE_NODE.odp" you can see the slides for the presentation I made on the topic.
 
 **difficulties:**  
-Trying to build the sufficient understanding to begin tackling the basic concepts of Artificial Neural Networks and machine learning. Also trying to understand the paper "ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential Equations" as it was full of concepts that were completely new to me.
+Trying to build the sufficient understanding to begin tackling the basic concepts of Artificial Neural Networks and machine learning. Also trying to understand the paper "ACE NODE" paper as it was full of concepts that were completely new to me.
 
-**learned:**  
--What is a neural network
--Forward Pass and Backpropagation (superficially)  
--how do neural networks "learn" using gradient descent  
--How to code and train a basic neural network
--Basics of classification tasks
--Basics of Jax
+**learned:** 
+
+- What is a neural network
+- Forward Pass and Backpropagation (superficially)  
+- how do neural networks "learn" using gradient descent  
+- How to code and train a basic neural network
+- Basics of classification tasks
+- Basics of Jax
 
 ---
 
 # PROJECT 1
 
-By this point I had already developed a basic understanding of some concepts in machine learning and ANNs. The next project consisted in starting our journey through the world of Neural Ordinary Differential Equations, a machine learning paradigm consisting of modeling the continous dynamics of a systems state. To this end I coded minimal version of a NODE in the script "minimal_node.py" (runs on it's own) and tested it's interpolation capabilities on a synthetic dataset of datapoints following a sinus curve. The idea here was to implement it without the use of dedicated libraries (other than jax) and to create our own numerical integration function using Euler's method. This attempt was sadly not very succesful and the model fails to interpolate the sinus curve, even without noise (probably due to some bug). The next week our task was to implement the same minimal architecture but with the use of the dedicated libraries equinox (for neural network), diffrax (for the integrator) and optax (for the optimizer). We tested the model on a dataset of covid infections over time for interpolation, and on a dataset of lynx and hare populations over time for interpolation and extrapolation. I also tested the model on the same synthetic dataset as before but with vastly better results. All in all the greatest accomplishment of my model was it's ability to capture the periodic behaviour of the populations for some runs of the extrapolation task. It also performed okay for the interpolation of covid cases. This can be tested out with the "min_node.py" script by choosing the experiment in the main function. It requires the "covid_data.npy" and "LH_data.npy" files to run.
+By this point I had already developed a basic understanding of some concepts in machine learning and ANNs. The next project consisted in starting our journey through the world of Neural Ordinary Differential Equations, a machine learning paradigm consisting of modeling the continous dynamics of a systems state. To this end I coded a minimal version of a NODE in the script "minimal_node.py" (runs on it's own) and tested it's interpolation capabilities on a synthetic dataset of datapoints following a sinus curve. The idea here was to implement it without the use of dedicated libraries (other than jax) and to create our own numerical integration function using Euler's method. This attempt was not very succesful and the model fails to interpolate the sinus curve, even without noise (probably due to a bug in the code). 
+
+The next week our task was to implement the same minimal architecture but with the use of the dedicated libraries equinox (for neural networks), diffrax (for the integrator) and optax (for the optimizer). We tested the model on a dataset of covid infections over time for interpolation, and on a dataset of lynx and hare populations over time for interpolation and extrapolation. I also tested the model on the same synthetic dataset as before but with vastly better results. All in all the greatest accomplishment of my model was it's ability to capture the periodic behaviour of the lynx and hare populations for some runs of the extrapolation task. It also performed reasonably well on the interpolation of COVID cases data. This can be tested out with the "min_node.py" script by choosing the experiment in the main function. It requires the "covid_data.npy" and "LH_data.npy" files to run.
 
 **difficulties:**
 The difficulties for this task were mainly to understand the differences of this new ML paradigm to the previous discrete model I had coded to recognize digits. Getting familiar with the Python libraries was also a big part of the work during these weeks. Another difficulty I had was to feed the node model with the lynx and hare population data. Up to this point it was not intuitive to me that time series could consist of multiple features. So thanks to the lynx and hare dataset I became more familiar with the concept of multivariate time series and how to feed the model with this data correctly, so that it could learn the interactions between the different variables.
 
 **learned:**
--How to implement a minimal Node Architecture and a simple integrator using Euler's method
--The basics of the equinox, diffrax and optax libraries
--The importance of Normalizing the data and tweaking the Hyperparameters of a model to achieve better results
--What a multivariate time series is (through lynx and hare experiment)
+
+- How to implement a minimal Node architecture and a simple integrator using Euler's method
+- The basics of the equinox, diffrax and optax libraries
+- The importance of normalizing the data and tweaking the hyperparameters of a model to achieve better results
+- What a multivariate time series is (through lynx and hare experiment)
 
 ---
 
@@ -111,7 +117,7 @@ The normalization statistics were then computed fot the whole dataset. The model
 
 After testing the performance of the model on the PhysioNet Sepsis classification task, the results seemed to be quite promising, but to be sure I modified an ODE RNN to handle the dataset in the same way, and compared the performance of both models. Unfortunately it was quite difficult to tell wether the Attention mechanism provided any substantial benefit over the much faster to train ODE RNN. This was a question that I tred to answer in my Final project, working together with my group partner Nils.
 
-To recreate the experiment, the scrtipt "preprocessing.py" has to be run on the PhysioNet sepsis dataset first (which is not contained inside the fodler) to create the files the model is to be trained with. After this the desired model to be tested out (ACE ODE RNN or ODE RNN) should be imported into "environment.py" before runing the script.
+To recreate the experiment, the scrtipt "preprocessing.py" has to be run on the PhysioNet sepsis dataset first (which is not contained inside the fodler) to create the files the model is to be trained with. After this the desired model to be tested out (ACE ODE RNN or ODE RNN) should be imported into "environment.py" before runing the script. The folders "checkpoints" and "data/time_series" also need to be structured the way they are for the script to run properly.
 
 **difficulties:**
 Although learning to make a model able to handle such a complex dataset was difficult in it's own right. What I struggled the most with this time was to design the code structure in an organized and modular way. With so many moving parts the handling of the preprocessing ended up being split between the "preprocessing.py" and "training.py" scripts in a way that I was not entirely happy with.
