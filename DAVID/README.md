@@ -28,7 +28,8 @@ The other project is in the script "digit_recog.py" (runs on it's own), which co
 
 During the first couple of weeks we also had to do some reading on more complex NODE models, for which I chose the ACE-NODE from the paper "ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential Equations" by Jhin et al., 2021. In "ACE_NODE.odp" you can see the slides for the presentation I made on the topic.
 
-**difficulties:**  
+**difficulties:** 
+ 
 Trying to build the sufficient understanding to begin tackling the basic concepts of Artificial Neural Networks and machine learning. Also trying to understand the paper "ACE-NODE" paper as it was full of concepts that were completely new to me.
 
 **learned:**
@@ -49,6 +50,7 @@ By this point I had already developed a basic understanding of some concepts in 
 The next week our task was to implement the same minimal architecture but with the use of the dedicated libraries Equinox (for neural networks), Diffrax (for the integrator) and Optax (for the optimizer). We tested the model on a dataset of COVID infections over time for interpolation, and on a dataset of Lynx and Hare populations over time for interpolation and extrapolation. I also tested the model on the same synthetic dataset as before but with vastly better results. All in all the greatest accomplishment of my model was it's ability to capture the periodic behavior of the Lynx and Hare populations for some runs of the extrapolation task. It also performed reasonably well on the interpolation of COVID cases data. This can be tested out with the "min_node.py" script by choosing the experiment in the main function. It requires the "covid_data.npy" and "LH_data.npy" files to run.
 
 **difficulties:**
+
 The difficulties for this task were mainly to understand the differences of this new ML paradigm to the previous discrete model I had coded to recognize digits. Getting familiar with the Python libraries was also a big part of the work during these weeks. Another difficulty I had was to feed the node model with the Lynx and Hare population data. Up to this point it was not intuitive to me that time series could consist of multiple features. So thanks to the Lynx and Hare dataset I became more familiar with the concept of multivariate time series and how to feed the model with this data correctly, so that it could learn the interactions between the different variables.
 
 **learned:**
@@ -65,6 +67,7 @@ The difficulties for this task were mainly to understand the differences of this
 The next project involved trying to predict a latent variable alpha for a dataset of spiral trajectories. For this we couldn't keep using the simple NODE architecture but had to implement a model capable of learning latent variables with more ease. I ended up implementing an ODE-RNN model, a recurrent neural network that also uses a NODE to evolve it's hidden state. The first week of this project our dataset consisted of spiral trajectories containing 100 uniformly sampled data points. More interesting was the following week, where we tested one of the most important advantages of the NODE architecture, which is to handle irregularly sampled data. For this we had to train the model to predict the latent variable alpha on four different datasets of spiral trajectories, and compare the performance on each dataset. The first dataset again with 100 uniformly sampled data points and then subsequently with 75, 50 and 25 irregularly sampled data points per trajectory. The results showed that this implementation of the model is able to retain a pretty good degree of accuracy even when the sampling frequency is reduced. This can be tested by running the script "environment.py" which needs all other files inside the folder to run properly.
 
 **difficulties:**
+
 Because we had to handle a more complex dataset and model, I had to properly learn to utilize the concepts of vectorizing and scanning in the context of jax. This was challenging at first but drastically improved the runtime of the application. The vectorization let us handle the batches of this very large dataset more efficiently, while the scanning was a crucial part of implementing the RNN in a way that was compilable for jax.
 
 **learned:**
@@ -86,6 +89,7 @@ The first couple of weeks I had to get familiar with the concepts of attention a
 To test this model I used the Lynx and Hare population dataset again for interpolation and extrapolation. The results for this first attempt at implementing the model were rather bad. Although it did managed to capture the periodicity of the populations on the extrapolation task, this happened much more infrequently than with the simple NODE architecture. But this may be due to the attention based model not being suited for this specific task or because of poor optimization. To recreate the experiment run the script "test_model.py".
 
 **difficulties:**
+
 There were mainly two difficulties with this project. First was to implement the training cycle proposed by the authors of the paper. This required for me to learn how to freeze specific parts of the model in Equinox, so that the two ODEs could be trained separately. But still with the model properly working, it was really difficult to get it to behave correctly for both the interpolation and the extrapolation tasks. Ultimately I didn't manage to get it to have a consistent performance.
 
 **learned:**
@@ -128,6 +132,7 @@ After testing the performance of the model on the PhysioNet Sepsis classificatio
 To recreate the experiment, the scrtipt "preprocessing.py" has to be run on the PhysioNet sepsis dataset first (which is not contained inside the folder) to create the files the model is to be trained with. After this the desired model to be tested out (ACE-ODE-RNN or ODE-RNN) should be imported into "environment.py" before running the script. The folders "checkpoints" and "data/time_series" also need to be structured the way they are for the script to run properly.
 
 **difficulties:**
+
 Although learning to make a model able to handle such a complex dataset was difficult in it's own right, what I struggled the most with this time was to design the code structure in an organized and modular way. With so many moving parts the handling of the preprocessing ended up being split between the "preprocessing.py" and "training.py" scripts in a way that I was not entirely happy with.
 
 **learned:**
