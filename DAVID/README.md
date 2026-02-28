@@ -29,7 +29,7 @@ The other project is in the script "digit_recog.py" (runs on it's own), which co
 During the first couple of weeks we also had to do some reading on more complex NODE models, for which I chose the ACE-NODE from the paper "ACE-NODE: Attentive Co-Evolving Neural Ordinary Differential Equations" by Jhin et al., 2021. In "ACE_NODE.odp" you can see the slides for the presentation I made on the topic.
 
 **difficulties:** 
- 
+
 Trying to build the sufficient understanding to begin tackling the basic concepts of Artificial Neural Networks and machine learning. Also trying to understand the paper "ACE-NODE" paper as it was full of concepts that were completely new to me.
 
 **learned:**
@@ -108,7 +108,7 @@ With these ideas in mind, the model in the script "ACE_ODE_RNNv2.py" was created
 
 **difficulties:**
 
-The biggest difficulties this project were to decide how to generate the initial attention and how to forward the attention to the next step on the recurrent connection. The paper roughly described how the initial attention was generated for each experiment, but didn't mention how to handle the attention on recurrent connections. To gain some clarity on this issue I wrote an email to the corresponding author of the paper, but sadly I have yet to receive a response. For the time being, on this project I decided to generate the initial attention with an outer product and to reset the attention with the same initial attention generation function on each step of the RNN.
+The biggest difficulties during this project were to decide how to generate the initial attention and how to forward the attention to the next step on the recurrent connection. The paper roughly described how the initial attention was generated for each experiment, but didn't mention how to handle the attention on recurrent connections. To gain some clarity on this issue I wrote an email to the corresponding author of the paper, but sadly I have yet to receive a response. For the time being, on this project I decided to generate the initial attention with an outer product and to reset the attention with the same initial attention generation function on each step of the RNN.
 
 **learned:**
 
